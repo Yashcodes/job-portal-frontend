@@ -43,6 +43,28 @@ const Home = () => {
     selectedCategory(e.target.value);
   };
 
+  // Calculate the index range
+  const calculatePageRange = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    return { startIndex, endIndex };
+  };
+
+  // Function for the next page
+  const nextPage = () => {
+    if (currentPage < Math.ceil(filteredItems.length / itemsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  // Function for the previous page
+  const previousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   // Main functions
   const filteredData = (jobs, selected, query) => {
     let filteredJobs = jobs;
@@ -71,6 +93,11 @@ const Home = () => {
       console.log(filteredData);
     }
 
+    // Slice the data based on current page
+    const { startIndex, endIndex } = calculatePageRange();
+
+    filteredJobs = filteredJobs.slice(startIndex, endIndex);
+
     return filteredJobs.map((data, index) => <Card key={index} data={data} />);
   };
 
@@ -98,6 +125,36 @@ const Home = () => {
               <h3 className="text-lg font-bold mb-2">{result.length} Jobs</h3>
               <p>No data found</p>
             </>
+          )}
+
+          {/* Pagination here */}
+          {result.length > 0 ? (
+            <div className="flex justify-center mt-4 space-x-8">
+              <button
+                onClick={previousPage}
+                className="hover:underline"
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+
+              <span className="mx-2">
+                Page {currentPage} of{" "}
+                {Math.ceil(filteredItems.length / itemsPerPage)}
+              </span>
+
+              <button
+                onClick={nextPage}
+                disabled={
+                  currentPage === Math.ceil(filteredItems.length / itemsPerPage)
+                }
+                className="hover:underline"
+              >
+                Next
+              </button>
+            </div>
+          ) : (
+            ""
           )}
         </div>
 
