@@ -4,6 +4,7 @@ import Banner from "../components/Home/Banner";
 import Card from "../components/Cards/Card";
 import Jobs from "./Jobs";
 import Sidebar from "../components/Sidebar/Sidebar";
+import Newsletter from "../components/Newsletter/Newsletter";
 
 const Home = () => {
   const [query, setQuery] = useState("");
@@ -163,7 +164,9 @@ const Home = () => {
         </div>
 
         {/* Right side */}
-        <div className="bg-white p-4 rounded">Right</div>
+        <div className="bg-white p-4 rounded">
+          <Newsletter />
+        </div>
       </div>
     </Layout>
   );
