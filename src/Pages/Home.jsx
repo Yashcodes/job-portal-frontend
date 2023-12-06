@@ -89,6 +89,7 @@ const Home = () => {
           Number(maxPrice) <= Number(selected) ||
           postingDate >= selected ||
           salaryType.toLowerCase() === selected.toLowerCase() ||
+          experienceLevel.toLowerCase() === selected.toLowerCase() ||
           employmentType.toLowerCase() === selected.toLowerCase()
       );
       console.log(filteredData);
@@ -147,7 +148,9 @@ const Home = () => {
               <button
                 onClick={nextPage}
                 disabled={
-                  currentPage === Math.ceil(filteredItems.length / itemsPerPage)
+                  currentPage ===
+                    Math.ceil(filteredItems.length / itemsPerPage) ||
+                  result.length < 6
                 }
                 className="hover:underline"
               >
