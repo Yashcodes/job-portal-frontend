@@ -3,6 +3,7 @@ import Layout from "../components/Layout/Layout";
 import Banner from "../components/Home/Banner";
 import Card from "../components/Cards/Card";
 import Jobs from "./Jobs";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const Home = () => {
   const [query, setQuery] = useState("");
@@ -25,7 +26,7 @@ const Home = () => {
   );
 
   // Radio based filtering
-  const handleChnage = (e) => {
+  const handleChange = (e) => {
     setSelectedCategory(e.target.value);
   };
 
@@ -72,8 +73,19 @@ const Home = () => {
       <Banner query={query} handleInputChange={handleInputChange} />
 
       {/* Main Job Content */}
-      <div>
-        <Jobs result={result} />
+      <div className="bg-[#FAFAFA] md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12">
+        {/* Left side */}
+        <div className="bg-white p-4 rounded">
+          <Sidebar handleChange={handleChange} handleClick={handleClick} />
+        </div>
+
+        {/* Job cards */}
+        <div className="col-span-2 bg-white p-4 rounded">
+          <Jobs result={result} />
+        </div>
+
+        {/* Right side */}
+        <div className="bg-white p-4 rounded">Right</div>
       </div>
     </Layout>
   );
